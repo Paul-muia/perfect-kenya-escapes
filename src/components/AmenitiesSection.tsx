@@ -11,7 +11,7 @@ import {
   Briefcase,
   Shield,
   Key,
-  Pool,
+  Droplets,
   Sparkles,
   Bath,
   Plus,
@@ -58,7 +58,7 @@ const AmenitiesSection = ({ amenities }: AmenitySectionProps) => {
     },
     {
       title: "Facilities & Services",
-      icon: <Pool className="h-4 w-4" />,
+      icon: <Droplets className="h-4 w-4" />,
       items: amenities.filter(a => a.includes("pool") || a.includes("gym") || a.includes("spa") || a.includes("cleaning"))
     },
     {
