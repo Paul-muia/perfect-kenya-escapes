@@ -1,6 +1,5 @@
-
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone, WhatsApp, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -107,14 +106,25 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone size={20} className="mr-3 text-luxury-purple" />
-                <a href="tel:+254712345678" className="text-gray-300 hover:text-white transition-colors">
-                  +254 712 345 678
+                <a href="tel:+254727283836" className="text-gray-300 hover:text-white transition-colors">
+                  +254 727 283 836
+                </a>
+              </div>
+              <div className="flex items-center">
+                <WhatsApp size={20} className="mr-3 text-luxury-purple" />
+                <a 
+                  href="https://wa.me/254727283836" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  WhatsApp +254 727 283 836
                 </a>
               </div>
               <div className="flex items-center">
                 <Mail size={20} className="mr-3 text-luxury-purple" />
-                <a href="mailto:info@perfectluxurystays.com" className="text-gray-300 hover:text-white transition-colors">
-                  info@perfectluxurystays.com
+                <a href="mailto:paulmutukumuia@gmail.com" className="text-gray-300 hover:text-white transition-colors">
+                  paulmutukumuia@gmail.com
                 </a>
               </div>
             </div>
