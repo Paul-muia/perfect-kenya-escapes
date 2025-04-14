@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Star, MapPin, Users, Bath, BedDouble, SquareIcon, Phone } from 'lucide-react';
+import { Star, MapPin, Users, Bath, BedDouble, SquareIcon, Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Property } from '@/lib/data';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Carousel,
@@ -14,6 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "./ui/button";
 
 interface PropertyCardProps {
   property: Property;
@@ -21,6 +24,8 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
+  const isMobile = useIsMobile();
+  
   const {
     id,
     name,
@@ -36,6 +41,17 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
     images,
     shortDescription,
   } = property;
+
+  const imageCaptions = [
+    "Main View",
+    "Living Room",
+    "Kitchen",
+    "Master Bedroom",
+    "Bathroom",
+    "Balcony",
+    "Exterior",
+    "Amenities",
+  ];
 
   return (
     <Link 
@@ -62,24 +78,39 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
               />
             </div>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-4xl">
-            <Carousel>
-              <CarouselContent>
-                {images.map((image, index) => (
-                  <CarouselItem key={index}>
-                    <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                      <img 
-                        src={image} 
-                        alt={`${name} - Image ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+          <DialogContent className="sm:max-w-[95vw] h-[90vh] p-0">
+            <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-black/40 p-2 text-white hover:bg-black/60">
+              <X className="h-6 w-6" />
+            </DialogClose>
+            
+            <div className="relative h-full w-full flex items-center justify-center bg-black">
+              <Carousel className="w-full h-full" opts={{ loop: true }}>
+                <CarouselContent className="h-full">
+                  {images.map((image, index) => (
+                    <CarouselItem key={index} className="h-full flex items-center justify-center">
+                      <div className="relative w-full h-full">
+                        <img 
+                          src={image} 
+                          alt={`${name} - ${imageCaptions[index] || `Image ${index + 1}`}`}
+                          className="w-full h-full object-contain"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4 text-center">
+                          <p className="text-sm md:text-base">
+                            {imageCaptions[index] || `Image ${index + 1}`} • {index + 1}/{images.length}
+                          </p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {!isMobile && (
+                  <>
+                    <CarouselPrevious className="left-4 bg-black/40 text-white hover:bg-black/60 border-none h-10 w-10" />
+                    <CarouselNext className="right-4 bg-black/40 text-white hover:bg-black/60 border-none h-10 w-10" />
+                  </>
+                )}
+              </Carousel>
+            </div>
           </DialogContent>
         </Dialog>
         
