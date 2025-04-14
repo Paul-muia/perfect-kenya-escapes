@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import BookingForm from '@/components/BookingForm';
+import AmenitiesSection from '@/components/AmenitiesSection';
 import { Button } from '@/components/ui/button';
 import { 
   MapPin, 
@@ -25,7 +25,6 @@ const PropertyDetail = () => {
   
   const property = properties.find(p => p.id === id);
   
-  // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -39,7 +38,6 @@ const PropertyDetail = () => {
       <NavBar />
       
       <main className="flex-grow pt-24">
-        {/* Back Link */}
         <div className="container mx-auto mb-6">
           <Link to="/properties" className="inline-flex items-center text-luxury-purple hover:underline">
             <ArrowLeft size={16} className="mr-1" />
@@ -47,7 +45,6 @@ const PropertyDetail = () => {
           </Link>
         </div>
         
-        {/* Property Header */}
         <div className="container mx-auto mb-6">
           <h1 className="text-3xl lg:text-4xl font-heading font-bold text-luxury-darkPurple mb-2">
             {property.name}
@@ -64,7 +61,6 @@ const PropertyDetail = () => {
           </div>
         </div>
         
-        {/* Image Gallery */}
         <div className="container mx-auto mb-8">
           {showAllPhotos ? (
             <div className="fixed inset-0 bg-white z-50 overflow-y-auto p-4 lg:p-8">
@@ -133,7 +129,6 @@ const PropertyDetail = () => {
                 </div>
               </div>
               
-              {/* Mobile View More Button */}
               <Button 
                 variant="outline"
                 size="sm"
@@ -147,11 +142,9 @@ const PropertyDetail = () => {
           )}
         </div>
         
-        {/* Property Details and Booking */}
         <div className="container mx-auto mb-16">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
-              {/* Key Features */}
               <div className="mb-8">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
@@ -185,7 +178,6 @@ const PropertyDetail = () => {
                 </div>
               </div>
               
-              {/* Description */}
               <div className="mb-8">
                 <h2 className="text-2xl font-heading font-semibold text-luxury-darkPurple mb-4">
                   About this property
@@ -195,22 +187,8 @@ const PropertyDetail = () => {
                 </div>
               </div>
               
-              {/* Amenities */}
-              <div className="mb-8">
-                <h2 className="text-2xl font-heading font-semibold text-luxury-darkPurple mb-4">
-                  Amenities
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2">
-                  {property.amenities.map((amenity, index) => (
-                    <div key={index} className="flex items-center">
-                      <Check size={16} className="text-luxury-purple mr-2" />
-                      <span>{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <AmenitiesSection amenities={property.amenities} />
               
-              {/* Location */}
               <div>
                 <h2 className="text-2xl font-heading font-semibold text-luxury-darkPurple mb-4">
                   Location
@@ -235,7 +213,6 @@ const PropertyDetail = () => {
               </div>
             </div>
             
-            {/* Booking Form */}
             <div>
               <BookingForm property={property} />
             </div>

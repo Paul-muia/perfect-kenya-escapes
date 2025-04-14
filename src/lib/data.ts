@@ -1,4 +1,3 @@
-
 export interface Property {
   id: string;
   name: string;
@@ -64,15 +63,26 @@ export const properties: Property[] = [
     maxGuests: 6,
     sqm: 240,
     amenities: [
-      "Infinity pool", 
-      "Floor-to-ceiling windows", 
-      "Smart home system", 
-      "Private terrace", 
-      "24/7 concierge", 
-      "Gym access", 
-      "Parking", 
       "High-speed WiFi",
-      "Home theater"
+      "Smart home system",
+      "Floor-to-ceiling windows",
+      "Private infinity pool",
+      "24/7 concierge & security",
+      "Fully equipped kitchen",
+      "In-unit washer and dryer",
+      "Central air conditioning",
+      "City view terrace",
+      "Private covered parking",
+      "Smart TV with Netflix",
+      "Premium coffee machine",
+      "Dedicated workspace",
+      "Keyless entry",
+      "Gym access",
+      "Daily housekeeping",
+      "Premium linens & towels",
+      "Home theater system",
+      "Wine refrigerator",
+      "Private elevator access"
     ],
     description: "Experience the height of luxury in this stunning penthouse with panoramic views of Nairobi's skyline. This spacious 3-bedroom sanctuary features floor-to-ceiling windows, a private terrace with an infinity pool, and impeccable modern design. The open-concept living space seamlessly blends with the dining area and gourmet kitchen equipped with top-tier appliances. Each bedroom offers en-suite bathrooms with rainfall showers and deep soaking tubs. The master suite includes a walk-in closet and private balcony. Additional amenities include a home theater, smart home technology, and 24/7 concierge service. Located in the prestigious Westlands district, you'll be minutes away from high-end restaurants, shopping, and cultural attractions.",
     shortDescription: "Spectacular penthouse with panoramic views, infinity pool, and luxurious modern amenities in Nairobi's upscale Westlands district.",
