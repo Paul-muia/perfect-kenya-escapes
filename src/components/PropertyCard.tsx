@@ -1,8 +1,19 @@
-
 import { Link } from 'react-router-dom';
-import { Star, MapPin, Users, Bath, BedDouble, SquareIcon } from 'lucide-react';
+import { Star, MapPin, Users, Bath, BedDouble, SquareIcon, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Property } from '@/lib/data';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface PropertyCardProps {
   property: Property;
@@ -35,20 +46,42 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
       )}
     >
       <div className="relative overflow-hidden">
-        {/* Featured badge */}
         {featured && (
           <div className="absolute top-4 left-4 z-10 bg-luxury-purple text-white px-3 py-1 rounded-full text-sm font-medium">
             Featured
           </div>
         )}
         
-        <div className="relative w-full aspect-[4/3] overflow-hidden">
-          <img
-            src={images[0]}
-            alt={name}
-            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-          />
-        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className="relative w-full aspect-[4/3] overflow-hidden cursor-pointer">
+              <img
+                src={images[0]}
+                alt={name}
+                className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-4xl">
+            <Carousel>
+              <CarouselContent>
+                {images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <div className="aspect-[16/9] overflow-hidden rounded-lg">
+                      <img 
+                        src={image} 
+                        alt={`${name} - Image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </DialogContent>
+        </Dialog>
         
         <div className="absolute bottom-4 left-4 flex space-x-1.5">
           {images.slice(0, 4).map((_, index) => (
@@ -100,7 +133,17 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
             <span className="text-lg font-semibold text-luxury-darkPurple">${price}</span>
             <span className="text-gray-500 text-sm"> / night</span>
           </div>
-          <span className="text-luxury-purple text-sm font-medium group-hover:underline">View details</span>
+          <div className="flex items-center space-x-2">
+            <a 
+              href="https://wa.me/254727283836" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-luxury-purple hover:text-luxury-darkPurple transition-colors"
+            >
+              <Phone size={18} />
+            </a>
+            <span className="text-luxury-purple text-sm font-medium group-hover:underline">View details</span>
+          </div>
         </div>
       </div>
     </Link>
