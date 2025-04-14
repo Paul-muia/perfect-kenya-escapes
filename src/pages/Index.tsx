@@ -9,8 +9,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { properties, testimonials, blogPosts } from '@/lib/data';
-import BlogCard from '@/components/BlogCard';
+import { properties, testimonials } from '@/lib/data';
 
 const Index = () => {
   // Scroll to top on page load
@@ -102,51 +101,6 @@ const Index = () => {
             {testimonials.map(testimonial => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Blog Preview */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center mb-10">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-heading font-bold text-luxury-darkPurple">
-                Latest from Our Blog
-              </h2>
-              <p className="mt-2 text-gray-600">
-                Travel tips, local insights, and luxury living inspiration
-              </p>
-            </div>
-            <Button 
-              asChild
-              variant="outline" 
-              className="rounded-full border-luxury-purple text-luxury-purple hover:bg-luxury-purple hover:text-white hidden md:flex"
-            >
-              <Link to="/blog">
-                View All Posts
-                <ArrowRight size={16} className="ml-2" />
-              </Link>
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogPosts.map(post => (
-              <BlogCard key={post.id} post={post} />
-            ))}
-          </div>
-          
-          <div className="text-center mt-8 md:hidden">
-            <Button 
-              asChild
-              variant="outline" 
-              className="rounded-full border-luxury-purple text-luxury-purple hover:bg-luxury-purple hover:text-white"
-            >
-              <Link to="/blog">
-                View All Posts
-                <ArrowRight size={16} className="ml-2" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
