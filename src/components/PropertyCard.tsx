@@ -31,16 +31,16 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
     name,
     location,
     price,
-    currency,
     rating,
     reviewCount,
     bedrooms,
     bathrooms,
     maxGuests,
-    sqm,
     images,
     shortDescription,
   } = property;
+
+  const kshPrice = price * 145; // Converting USD to KSH
 
   const imageCaptions = [
     "Main View",
@@ -161,7 +161,7 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
         
         <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
           <div>
-            <span className="text-lg font-semibold text-luxury-darkPurple">${price}</span>
+            <span className="text-lg font-semibold text-luxury-darkPurple">KSh {kshPrice.toLocaleString()}</span>
             <span className="text-gray-500 text-sm"> / night</span>
           </div>
           <div className="flex items-center space-x-2">
