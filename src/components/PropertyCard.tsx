@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Star, MapPin, Users, Bath, BedDouble, Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';

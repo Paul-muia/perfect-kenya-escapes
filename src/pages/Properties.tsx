@@ -51,11 +51,15 @@ const Properties = () => {
     }
     
     if (minPrice) {
-      results = results.filter(property => property.price >= parseInt(minPrice));
+      // Convert KSH to USD for filtering since data is in USD
+      const minPriceUSD = parseInt(minPrice) / 145;
+      results = results.filter(property => property.price >= minPriceUSD);
     }
     
     if (maxPrice) {
-      results = results.filter(property => property.price <= parseInt(maxPrice));
+      // Convert KSH to USD for filtering since data is in USD
+      const maxPriceUSD = parseInt(maxPrice) / 145;
+      results = results.filter(property => property.price <= maxPriceUSD);
     }
     
     if (bedrooms) {
@@ -174,12 +178,12 @@ const Properties = () => {
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
-                        Min Price
+                        Min Price (KSh)
                       </label>
                       <Input
                         id="minPrice"
                         type="number"
-                        placeholder="$"
+                        placeholder="KSh"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
                         className="border-gray-300 focus:border-luxury-purple focus:ring-luxury-purple"
@@ -187,12 +191,12 @@ const Properties = () => {
                     </div>
                     <div>
                       <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
-                        Max Price
+                        Max Price (KSh)
                       </label>
                       <Input
                         id="maxPrice"
                         type="number"
-                        placeholder="$"
+                        placeholder="KSh"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
                         className="border-gray-300 focus:border-luxury-purple focus:ring-luxury-purple"

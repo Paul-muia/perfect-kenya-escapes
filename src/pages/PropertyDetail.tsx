@@ -76,11 +76,11 @@ const PropertyDetail = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {property.images.map((image, index) => (
-                  <div key={index} className="aspect-video">
+                  <div key={index} className="aspect-video w-full">
                     <img 
                       src={image} 
                       alt={`${property.name} - Photo ${index + 1}`} 
-                      className="w-full h-full object-cover rounded-lg"
+                      className="w-full h-full object-contain rounded-lg"
                     />
                   </div>
                 ))}
