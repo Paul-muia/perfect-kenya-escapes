@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
@@ -89,7 +88,7 @@ const PropertyDetail = () => {
                   <img 
                     src={property.images[0]} 
                     alt={property.name} 
-                    className="w-full h-full object-cover rounded-l-lg"
+                    className="w-full h-full object-contain rounded-l-lg"
                   />
                 </div>
               </DialogTrigger>
@@ -105,7 +104,7 @@ const PropertyDetail = () => {
                         src={image} 
                         alt={`${property.name} - Photo ${index + 1}`} 
                         className={cn(
-                          "w-full h-full object-cover",
+                          "w-full h-full object-contain",
                           index === 1 && "rounded-tr-lg",
                           index === 3 && "rounded-br-lg"
                         )}
@@ -115,15 +114,16 @@ const PropertyDetail = () => {
                 ))}
               </div>
               
-              <Button 
-                variant="outline"
-                size="sm"
-                className="absolute bottom-3 right-3 bg-white"
-                onClick={() => setShowAllPhotos(true)}
-              >
-                <Maximize2 size={16} className="mr-1.5" />
-                Show all photos
-              </Button>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className="absolute bottom-3 right-3 bg-white"
+                >
+                  <Maximize2 size={16} className="mr-1.5" />
+                  Show all photos
+                </Button>
+              </DialogTrigger>
             </div>
 
             <DialogContent className="sm:max-w-[95vw] h-[90vh] p-0">
