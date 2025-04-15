@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import React from 'react';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -13,10 +13,11 @@ import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
+// Using HashRouter instead of BrowserRouter for GitHub Pages
 const App = () => (
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <HashRouter>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -29,7 +30,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   </React.StrictMode>
 );

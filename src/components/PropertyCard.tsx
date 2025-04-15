@@ -1,5 +1,6 @@
+
 import { Link } from 'react-router-dom';
-import { Star, MapPin, Users, Bath, BedDouble, SquareIcon, Phone, X } from 'lucide-react';
+import { Star, MapPin, Users, Bath, BedDouble, Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Property } from '@/lib/data';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -54,13 +55,10 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
   ];
 
   return (
-    <Link 
-      to={`/property/${id}`}
-      className={cn(
-        "group flex flex-col bg-white rounded-2xl overflow-hidden transition-all hover:shadow-xl luxury-shadow",
-        featured ? "h-full" : "h-full"
-      )}
-    >
+    <div className={cn(
+      "group flex flex-col bg-white rounded-2xl overflow-hidden transition-all hover:shadow-xl luxury-shadow",
+      featured ? "h-full" : "h-full"
+    )}>
       <div className="relative overflow-hidden">
         {featured && (
           <div className="absolute top-4 left-4 z-10 bg-luxury-purple text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -173,11 +171,13 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
             >
               <Phone size={18} />
             </a>
-            <span className="text-luxury-purple text-sm font-medium group-hover:underline">View details</span>
+            <Link to={`/property/${id}`} className="text-luxury-purple text-sm font-medium group-hover:underline">
+              View details
+            </Link>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
