@@ -73,9 +73,7 @@ const FeaturedProperties = ({ properties }: FeaturedPropertiesProps) => {
         >
           {properties.filter(p => p.featured).map((property) => (
             <div key={property.id} className="min-w-[350px] max-w-[350px]">
-              <Link to={`/property/${property.id}`} className="block">
-                <PropertyCard property={property} featured={true} />
-              </Link>
+              <PropertyCard property={property} featured={true} />
             </div>
           ))}
         </div>

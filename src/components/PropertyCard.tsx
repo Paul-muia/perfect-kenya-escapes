@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Star, MapPin, Users, Bath, BedDouble, Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -124,7 +125,7 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
         </div>
       </div>
       
-      <div className="flex flex-col flex-grow p-5">
+      <Link to={`/property/${id}`} className="flex flex-col flex-grow p-5">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-semibold font-heading text-luxury-darkPurple">{name}</h3>
           <div className="flex items-center">
@@ -166,16 +167,14 @@ const PropertyCard = ({ property, featured = false }: PropertyCardProps) => {
               href="https://wa.me/254727283836" 
               target="_blank" 
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="text-luxury-purple hover:text-luxury-darkPurple transition-colors"
             >
               <Phone size={18} />
             </a>
-            <Link to={`/property/${id}`} className="text-luxury-purple text-sm font-medium group-hover:underline">
-              View details
-            </Link>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

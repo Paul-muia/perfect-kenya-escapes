@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
@@ -10,18 +11,26 @@ import {
   BedDouble, 
   Bath, 
   Users, 
-  SquareIcon,
   Maximize2,
   ArrowLeft,
-  Check,
   Star,
+  X,
 } from 'lucide-react';
 import { properties } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 
 const PropertyDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   
   const property = properties.find(p => p.id === id);
   
@@ -32,6 +41,17 @@ const PropertyDetail = () => {
   if (!property) {
     return <Navigate to="/properties" replace />;
   }
+  
+  const imageCaptions = [
+    "Main View",
+    "Living Room",
+    "Kitchen",
+    "Master Bedroom",
+    "Bathroom",
+    "Balcony",
+    "Exterior",
+    "Amenities",
+  ];
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -62,84 +82,81 @@ const PropertyDetail = () => {
         </div>
         
         <div className="container mx-auto mb-8">
-          {showAllPhotos ? (
-            <div className="fixed inset-0 bg-white z-50 overflow-y-auto p-4 lg:p-8">
-              <Button 
-                variant="outline"
-                size="sm" 
-                className="mb-4"
-                onClick={() => setShowAllPhotos(false)}
-              >
-                <ArrowLeft size={16} className="mr-1.5" />
-                Back to Property
-              </Button>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {property.images.map((image, index) => (
-                  <div key={index} className="aspect-video w-full">
-                    <img 
-                      src={image} 
-                      alt={`${property.name} - Photo ${index + 1}`} 
-                      className="w-full h-full object-contain rounded-lg"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
+          <Dialog>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-2 relative">
-              <div className="md:col-span-2 aspect-[4/3] relative">
-                <img 
-                  src={property.images[0]} 
-                  alt={property.name} 
-                  className="w-full h-full object-cover rounded-l-lg"
-                />
-              </div>
-              <div className="hidden md:grid md:col-span-2 grid-cols-2 gap-2">
-                <img 
-                  src={property.images[1]} 
-                  alt={`${property.name} - Photo 2`} 
-                  className="w-full h-full object-cover"
-                />
-                <img 
-                  src={property.images[2]} 
-                  alt={`${property.name} - Photo 3`} 
-                  className="w-full h-full object-cover rounded-tr-lg"
-                />
-                <img 
-                  src={property.images[3]} 
-                  alt={`${property.name} - Photo 4`} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="relative">
+              <DialogTrigger asChild>
+                <div className="md:col-span-2 aspect-[4/3] relative cursor-pointer">
                   <img 
                     src={property.images[0]} 
-                    alt={`${property.name} - Photo 5`} 
-                    className="w-full h-full object-cover rounded-br-lg"
+                    alt={property.name} 
+                    className="w-full h-full object-cover rounded-l-lg"
                   />
-                  <div 
-                    className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-br-lg cursor-pointer"
-                    onClick={() => setShowAllPhotos(true)}
-                  >
-                    <div className="flex items-center text-white font-medium">
-                      <Maximize2 size={18} className="mr-2" />
-                      Show all photos
-                    </div>
-                  </div>
                 </div>
+              </DialogTrigger>
+              <div className="hidden md:grid md:col-span-2 grid-cols-2 gap-2">
+                {property.images.slice(1, 5).map((image, index) => (
+                  <DialogTrigger key={index} asChild>
+                    <div className={cn(
+                      "cursor-pointer relative",
+                      index === 1 && "rounded-tr-lg",
+                      index === 3 && "rounded-br-lg"
+                    )}>
+                      <img 
+                        src={image} 
+                        alt={`${property.name} - Photo ${index + 1}`} 
+                        className={cn(
+                          "w-full h-full object-cover",
+                          index === 1 && "rounded-tr-lg",
+                          index === 3 && "rounded-br-lg"
+                        )}
+                      />
+                    </div>
+                  </DialogTrigger>
+                ))}
               </div>
               
               <Button 
                 variant="outline"
                 size="sm"
-                className="absolute bottom-3 right-3 bg-white md:hidden"
+                className="absolute bottom-3 right-3 bg-white"
                 onClick={() => setShowAllPhotos(true)}
               >
                 <Maximize2 size={16} className="mr-1.5" />
                 Show all photos
               </Button>
             </div>
-          )}
+
+            <DialogContent className="sm:max-w-[95vw] h-[90vh] p-0">
+              <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-black/40 p-2 text-white hover:bg-black/60">
+                <X className="h-6 w-6" />
+              </DialogClose>
+              
+              <div className="relative h-full w-full flex items-center justify-center bg-black">
+                <Carousel className="w-full h-full" opts={{ loop: true }}>
+                  <CarouselContent className="h-full">
+                    {property.images.map((image, index) => (
+                      <CarouselItem key={index} className="h-full flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                          <img 
+                            src={image} 
+                            alt={`${property.name} - ${imageCaptions[index] || `Image ${index + 1}`}`}
+                            className="w-full h-full object-contain"
+                          />
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4 text-center">
+                            <p className="text-sm md:text-base">
+                              {imageCaptions[index] || `Image ${index + 1}`} • {index + 1}/{property.images.length}
+                            </p>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4 bg-black/40 text-white hover:bg-black/60 border-none h-10 w-10" />
+                  <CarouselNext className="right-4 bg-black/40 text-white hover:bg-black/60 border-none h-10 w-10" />
+                </Carousel>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
         
         <div className="container mx-auto mb-16">
@@ -170,10 +187,10 @@ const PropertyDetail = () => {
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex items-center mb-2">
-                      <SquareIcon size={16} className="text-luxury-purple mr-2" />
-                      <span className="text-sm text-gray-500">Area</span>
+                      <BedDouble size={16} className="text-luxury-purple mr-2" />
+                      <span className="text-sm text-gray-500">Beds</span>
                     </div>
-                    <p className="font-semibold text-lg">{property.sqm} m²</p>
+                    <p className="font-semibold text-lg">{property.bedrooms * 2}</p>
                   </div>
                 </div>
               </div>
