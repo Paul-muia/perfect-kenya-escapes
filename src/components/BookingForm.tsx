@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { Calendar, CheckCircle, BedDouble } from 'lucide-react';
+import { Calendar, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,7 +16,6 @@ interface BookingFormProps {
 
 const BookingForm = ({ property }: BookingFormProps) => {
   const { price } = property;
-  const kshPrice = price * 145; // Converting USD to KSH (approximate rate)
   
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
@@ -32,10 +32,7 @@ const BookingForm = ({ property }: BookingFormProps) => {
   };
   
   const nights = calculateNights();
-  const subTotal = nights * kshPrice;
-  const serviceFeePerDay = 1166;
-  const totalServiceFee = nights * serviceFeePerDay;
-  const total = subTotal + totalServiceFee;
+  const total = nights * price;
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +55,16 @@ const BookingForm = ({ property }: BookingFormProps) => {
         </div>
       ),
     });
+    
+    // In a real application, you'd send this data to your backend
+    console.log({
+      propertyId: property.id,
+      checkIn,
+      checkOut,
+      guests,
+      nights,
+      totalAmount: total
+    });
   };
   
   return (
@@ -65,7 +72,7 @@ const BookingForm = ({ property }: BookingFormProps) => {
       <CardContent className="pt-6">
         <div className="mb-6">
           <div className="flex justify-between items-center mb-1">
-            <span className="text-2xl font-semibold text-luxury-darkPurple">KSh {kshPrice.toLocaleString()}</span>
+            <span className="text-2xl font-semibold text-luxury-darkPurple">KSh {price.toLocaleString()}</span>
             <span className="text-gray-500">night</span>
           </div>
           
@@ -145,12 +152,8 @@ const BookingForm = ({ property }: BookingFormProps) => {
         
         <div className="mt-6 space-y-2">
           <div className="flex justify-between text-gray-600">
-            <span>KSh {kshPrice.toLocaleString()} × {nights || 0} nights</span>
-            <span>KSh {subTotal.toLocaleString()}</span>
-          </div>
-          <div className="flex justify-between text-gray-600">
-            <span>Service fee ({serviceFeePerDay.toLocaleString()} per night)</span>
-            <span>KSh {totalServiceFee.toLocaleString()}</span>
+            <span>KSh {price.toLocaleString()} × {nights || 0} nights</span>
+            <span>KSh {total.toLocaleString()}</span>
           </div>
           <div className="border-t border-gray-200 pt-4 mt-4 flex justify-between font-semibold">
             <span>Total</span>

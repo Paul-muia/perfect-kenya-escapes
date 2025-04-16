@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
@@ -28,8 +29,8 @@ import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/
 
 const PropertyDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [open, setOpen] = useState(false);
   
   const property = properties.find(p => p.id === id);
   
@@ -81,7 +82,7 @@ const PropertyDetail = () => {
         </div>
         
         <div className="container mx-auto mb-8">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-2 relative">
               <DialogTrigger asChild>
                 <div className="md:col-span-2 aspect-[4/3] relative cursor-pointer">
@@ -119,6 +120,7 @@ const PropertyDetail = () => {
                   variant="outline"
                   size="sm"
                   className="absolute bottom-3 right-3 bg-white"
+                  onClick={() => setOpen(true)}
                 >
                   <Maximize2 size={16} className="mr-1.5" />
                   Show all photos

@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -14,15 +15,15 @@ const Footer = () => {
               offering unparalleled experiences with personalized service.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                 <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
               </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                 <Twitter size={20} />
                 <span className="sr-only">Twitter</span>
               </a>
@@ -49,12 +50,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="#" className="text-gray-300 hover:text-white transition-colors">
+                <Link to="/terms" className="text-gray-300 hover:text-white transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link to="#" className="text-gray-300 hover:text-white transition-colors">
+                <Link to="/privacy" className="text-gray-300 hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
@@ -99,10 +100,10 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start">
                 <MapPin size={20} className="mr-3 text-luxury-purple mt-1" />
-                <span className="text-gray-300">
+                <address className="text-gray-300 not-italic">
                   Westlands Business Park<br />
                   Nairobi, Kenya
-                </span>
+                </address>
               </div>
               <div className="flex items-center">
                 <Phone size={20} className="mr-3 text-luxury-purple" />
@@ -131,8 +132,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail size={20} className="mr-3 text-luxury-purple" />
-                <a href="mailto:paulmutukumuia@gmail.com" className="text-gray-300 hover:text-white transition-colors">
-                  paulmutukumuia@gmail.com
+                <a href="mailto:info@perfectluxurystays.com" className="text-gray-300 hover:text-white transition-colors">
+                  info@perfectluxurystays.com
                 </a>
               </div>
             </div>
@@ -146,15 +147,15 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Perfect Luxury Stays. All rights reserved.
           </p>
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">
+            <Link to="/terms" className="text-gray-400 text-sm hover:text-white transition-colors">
               Terms & Conditions
-            </a>
-            <a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">
+            </Link>
+            <Link to="/privacy" className="text-gray-400 text-sm hover:text-white transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 text-sm hover:text-white transition-colors">
+            </Link>
+            <Link to="/cookies" className="text-gray-400 text-sm hover:text-white transition-colors">
               Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

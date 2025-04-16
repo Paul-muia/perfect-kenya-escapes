@@ -51,15 +51,13 @@ const Properties = () => {
     }
     
     if (minPrice) {
-      // Convert KSH to USD for filtering since data is in USD
-      const minPriceUSD = parseInt(minPrice) / 145;
-      results = results.filter(property => property.price >= minPriceUSD);
+      // Prices are already in KSH now
+      results = results.filter(property => property.price >= parseInt(minPrice));
     }
     
     if (maxPrice) {
-      // Convert KSH to USD for filtering since data is in USD
-      const maxPriceUSD = parseInt(maxPrice) / 145;
-      results = results.filter(property => property.price <= maxPriceUSD);
+      // Prices are already in KSH now
+      results = results.filter(property => property.price <= parseInt(maxPrice));
     }
     
     if (bedrooms) {
